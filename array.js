@@ -48,8 +48,9 @@ function getRecipes() {
     // check if recipe has name and vegan status
     // add recipe to recipes
     // return recipes array
-    if(recipe.name && recipe.vegan !== undefined);
-    recipes.push(recipe);
+    if (recipe.name && recipe.vegan !== undefined) {
+        recipes.push(recipe);
+    }
     return recipes;
   };
 
