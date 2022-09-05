@@ -53,6 +53,85 @@ function getRecipes() {
     return recipes;
   };
 
+  // Task: 2. delete a recipe that matches a given name
+  
+  const deleteRecipe = (recipes, recipeName) => {
+    const updatedList = recipes.findIndex(recipeName === "carbonara");
+    recipes.splice(updatedList, 1);
+
+    
+    //const updatedList = recipeName.indexOf("carbonara");
+    //recipes.splice(updatedList, 1);
+  
+    // ....
+    return updatedList;
+  }
+  
+  // Task: 3. get only vegan recipes
+  
+  // Task: 4. get the names of the ingredients of a recipe
+  const getIngredientNames = (recipes, recipeName) => {
+  
+  }
+  
+  // Task: 5. add a recipe to favorites
+  const addToFavorites = (favorites, recipe) => {
+    // .....
+    return favorites;
+  }
+  
+  // Task: 6. remove a recipe from favorites
+  const removeFavorite = (favorites, recipeName) => {
+    //....
+    // use filter
+    //
+    return updatedFavorites;
+  }
+  
+  // Task: 7. get the list of names of the recipes in favorites
+  
+  // Task: 8. edit a recipe - change the name
+  const editRecipe = (recipes, oldName, newName) => {
+    // this can be done by map
+    // map each recipe to itself. If the name matches, map it to a new object with newName
+  }
+  
+  // Task: 9. edit a recipe - make it vegan / make it non-vegan
+  const toggleVeganStatus = (recipes, recipeName) => {
+  
+  }
+  
+  // Task: 10. get one recipe by name - return the recipe that matches the exact name of the recipe
+  const searchByRecipeName = (recipes, recipeName) => {
+    // use filter
+  }
+  
+  // Task: 11. search by ingredient name - return all recipes that contain a given ingredient name
+  const searchByIngredientName = (recipes, ingredientName) => {
+    // use filter and again filter through the ingredients
+  }
+  
+  // Task: 12. add an ingredient to a recipe
+  const addIngredient = (recipes, recipeName, ingredient) => {
+    // add the ingredient to the recipe that matches the recipename
+    // return updatedList;
+  }
+  
+  // Task: 13. delete an ingredient from a recipe, 
+  const deleteIngredient = (recipes, recipeName, ingredientName) => {
+    // delete the ingredient of the recipe that matches the recipename
+    // return updatedList;
+  }
+  
+  
+  // Task: 14. edit a recipe - change the quantity of an ingredient
+  const editIngredientQuantity = (recipes, recipeName, ingredientName, newQuantity) => {
+    // find the recipe by name
+    // update the ingredients of the recipe you found to have newQuantity
+    // use map to map each recipe to itself, but if the name matches the recipeName, update the ingredients
+    // return the updated recipes array 
+  }
+
   const main = () => {
     let recipes = getRecipes();
     
