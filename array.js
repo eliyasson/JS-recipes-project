@@ -57,39 +57,60 @@ function getRecipes() {
   // Task: 2. delete a recipe that matches a given name
   
   const deleteRecipe = (recipes, recipeName) => {
-    const updatedList = recipes.findIndex(recipeName === "carbonara");
-    recipes.splice(updatedList, 1);
-
-    
-    //const updatedList = recipeName.indexOf("carbonara");
-    //recipes.splice(updatedList, 1);
-  
-    // ....
+    const updatedList = recipes.filter((x) => {
+        return x.name != recipeName;
+    })
     return updatedList;
-  }
+  };
+  //let y = deleteRecipe(recipes, "rice bowl");
+  //console.log(y);
   
-  // Task: 3. get only vegan recipes
-  
+  // Task: 3. get only vegan recip
+  const result = recipes.filter((item) => item.vegan);
+
   // Task: 4. get the names of the ingredients of a recipe
   const getIngredientNames = (recipes, recipeName) => {
-  
-  }
+    const recipe1 = recipes.find((recipe) => {
+        return recipe.name === recipeName;
+
+    });
+    const nameOfIngredient1 = recipe1.ingredients.map((ingredient) => {
+        return ingredient.name;
+      })
+      return nameOfIngredient1;
+    };
+  //let ingredientNameList = getIngredientNames(recipes, "salmon soup");
+  //console.log(ingredientNameList);
   
   // Task: 5. add a recipe to favorites
   const addToFavorites = (favorites, recipe) => {
-    // .....
-    return favorites;
-  }
+    if (recipe !== undefined) {
+        favorites.push(recipe);
+      }
+      
+     return favorites;
+    }
   
+  //let rec = addToFavorites(favorites, OzzoChicken);
+  //let rec1 = addToFavorites(favorites, lentilBolognese);
+  //console.log(rec);
+
   // Task: 6. remove a recipe from favorites
   const removeFavorite = (favorites, recipeName) => {
-    //....
-    // use filter
-    //
-    return updatedFavorites;
-  }
+    const updatedFavorites = favorites.filter((del) => {
+    return del.name != recipeName; 
+  })
+  return updatedFavorites;
+}
+
+//let rem = removeFavorite(favorites, "Lentil Bolognese");
+//console.log(rem);
   
   // Task: 7. get the list of names of the recipes in favorites
+  const findName = favorites.map((fav) => {
+    return fav.name;
+  })
+  //console.log(findName);
   
   // Task: 8. edit a recipe - change the name
   const editRecipe = (recipes, oldName, newName) => {
