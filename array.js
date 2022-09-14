@@ -120,6 +120,7 @@ function getRecipes() {
   //let newRename = editRecipe(recipes, "salmon soup", "Finnish salmon soup");
   //console.log(newRename);
   
+  
   // Task: 9. edit a recipe - make it vegan / make it non-vegan
   const toggleVeganStatus = (recipes, recipeName) => {
   recipes.filter(item => item.name === recipeName).map(item => item.vegan = true)
