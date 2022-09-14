@@ -114,19 +114,29 @@ function getRecipes() {
   
   // Task: 8. edit a recipe - change the name
   const editRecipe = (recipes, oldName, newName) => {
-    // this can be done by map
-    // map each recipe to itself. If the name matches, map it to a new object with newName
+    recipes.filter(item => item.name === oldName).map(item => item.name = newName)
+    return recipes;
   }
+  //let newRename = editRecipe(recipes, "salmon soup", "Finnish salmon soup");
+  //console.log(newRename);
   
   // Task: 9. edit a recipe - make it vegan / make it non-vegan
   const toggleVeganStatus = (recipes, recipeName) => {
-  
+  recipes.filter(item => item.name === recipeName).map(item => item.vegan = true)
+  return recipes;
   }
+    // change "rice bowl" to be vegan
+    //let filteredRecipes = toggleVeganStatus(recipes, "rice bowl");
+    //console.log(filteredRecipes);
   
   // Task: 10. get one recipe by name - return the recipe that matches the exact name of the recipe
   const searchByRecipeName = (recipes, recipeName) => {
-    // use filter
+    const recipeName2 = recipes.filter(item => item.name === recipeName)
+    return recipeName2;
   }
+  //let searchByName = searchByRecipeName(recipes, "Lentil Bolognese");
+  //console.log(searchByName);
+  
   
   // Task: 11. search by ingredient name - return all recipes that contain a given ingredient name
   const searchByIngredientName = (recipes, ingredientName) => {
