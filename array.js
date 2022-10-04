@@ -66,7 +66,9 @@ function getRecipes() {
   //console.log(y);
   
   // Task: 3. get only vegan recip
-  const result = recipes.filter((item) => item.vegan);
+  const result = recipes.filter((item) => {
+    return item.vegan;
+  });
 
   // Task: 4. get the names of the ingredients of a recipe
   const getIngredientNames = (recipes, recipeName) => {
@@ -123,37 +125,65 @@ function getRecipes() {
   
   // Task: 9. edit a recipe - make it vegan / make it non-vegan
   const toggleVeganStatus = (recipes, recipeName) => {
-  recipes.filter(item => item.name === recipeName).map(item => item.vegan = true)
-  return recipes;
-  }
-    // change "rice bowl" to be vegan
-    //let filteredRecipes = toggleVeganStatus(recipes, "rice bowl");
-    //console.log(filteredRecipes);
+    const filtered = recipes.filter(item => {
+      return item.name === recipeName;
+    })
+    filtered.map(recipe => {
+        if(recipe.vegan === false) {
+          recipe.vegan = true;
+        } else {
+          recipe.vegan = false;
+        }
+      })
+      return recipes;
   
+  }
+  // change "rice bowl" to be vegan
+    
   // Task: 10. get one recipe by name - return the recipe that matches the exact name of the recipe
   const searchByRecipeName = (recipes, recipeName) => {
     const recipeName2 = recipes.filter(item => item.name === recipeName)
     return recipeName2;
   }
-  //let searchByName = searchByRecipeName(recipes, "Lentil Bolognese");
-  //console.log(searchByName);
-  
-  
+
   // Task: 11. search by ingredient name - return all recipes that contain a given ingredient name
   const searchByIngredientName = (recipes, ingredientName) => {
     // use filter and again filter through the ingredients
+    const ingredientName1 = recipes.filter(item => {
+      return item.ingredients.name === ingredientName;
+    }) 
+    return ingredientName1;
   }
   
   // Task: 12. add an ingredient to a recipe
   const addIngredient = (recipes, recipeName, ingredient) => {
     // add the ingredient to the recipe that matches the recipename
     // return updatedList;
+    const updatedRecipes = recipes.map(item => {
+      if(item.name === recipeName){
+          item.ingredients.push(ingredient);
+      }
+      return item;
+    })
+  
+  return updatedRecipes;
   }
   
   // Task: 13. delete an ingredient from a recipe, 
   const deleteIngredient = (recipes, recipeName, ingredientName) => {
     // delete the ingredient of the recipe that matches the recipename
     // return updatedList;
+    const updatedList = recipes.map((item) => {
+      if(item.name === recipeName) {
+        item.ingredients.filter((del) => {
+          if(del.name != ingredientName) {
+            return true;
+          }
+        })
+      }
+      return item;
+    })
+    return updatedList;
   }
   
   
@@ -162,9 +192,18 @@ function getRecipes() {
     // find the recipe by name
     // update the ingredients of the recipe you found to have newQuantity
     // use map to map each recipe to itself, but if the name matches the recipeName, update the ingredients
-    // return the updated recipes array 
+    // return the updated recipes array
+    const updatedRecipeName = recipes.map(item => {
+      if(item.name === recipeName) {
+        item.ingredients.map(item => {
+          
+        })
+      }
+      return item;
+    })
+    return updatedRecipeName;
   }
-
+ 
   const main = () => {
     let recipes = getRecipes();
     
@@ -212,29 +251,46 @@ function getRecipes() {
 
     };
     recipes = addRecipe(recipes, OzzoChicken);
-    console.log(recipes);
+    //console.log(recipes);
   
     // Task: 15.2
     // Delete the recipe named "carbonara" using the function from Task-2
+    let deletedRecipe = deleteRecipe(recipes, "carbonara");
+    //console.log(deletedRecipe);
   
     // Task: 15.3
     // Add ingredient "garlic with quantity: 3" to the recipe "salmon soup"
+    let newIngredient = addIngredient(recipes, "salmon soup", {name: "garlic"})
+    //console.log(newIngredient);
+    let addIngredientQuantity = editIngredientQuantity(recipes, "salmon soup", "salmon", 2)
+    //console.log(addIngredientQuantity);
+
     // Add ingredient "lentil with quantity: 1" to the recipe "rice bowl"
+    let newIngredient2 = addIngredient(recipes, "rice bowl", {name: "lentil"})
+    //console.log(newIngredient2);
   
     // Task: 15.4
     // Delete ingredient named "water" from the recipe "rice bowl"
+    let deletedIngredientName = deleteIngredient(recipes, "rice bowl", "water");
+    //console.log(deletedIngredientName);
   
     // Task: 15.5
     // Get the recipe by the name "Ozzo Chicken" and Add it to favorites
     // Get the recipe by the name "salmon soup" and Add it to favorites
     // Get the recipe by the name "Lentil Bolognese" and Add it to favorites
-    favorites = addToFavorites(favorites, lentilBolognese);
+    favorites = addToFavorites(favorites, lentilBolognese); 
+    //favorite1 = addToFavorites(favorites, OzzoChicken);
+    //favorite2 = addToFavorites(favorites, "salmon soup");
   
     // Task: 15.6
     // Delete the recipe "Lentil Bolognese" from the favorites
+    let removed = removeFavorite(favorites, "Lentil Bolognese");
+    //console.log(removed);
   
     // Task: 15.7
     // Change the name of the recipe "rice bowl" to "Japanese Rice Bowl"
+    let rename = editRecipe(recipes, "rice bowl", "Japanese Rice Bowl");
+    //console.log(rename);
   
     // Task: 15.8
     // change "rice bowl" to be vegan
@@ -242,22 +298,25 @@ function getRecipes() {
   
     // Task: 15.9
     // change the quantity of the Ingredient lentil to be 2, in  Lentil Bolognese
-  
+
     // Task: 15.10
     // call the function you implemented on task-5 to get the list of ingredients of "salmon soup"
-    // console.log these Ingredients
+    let ingredientNameList = getIngredientNames(recipes, "salmon soup");
+    console.log(ingredientNameList); 
     // TEST 1: it should print these ingredients: salmon, cream, milk, garlic
   
     // Task: 15.11
-    // console.log all the vegan recipes
+    console.log(result); //all the vegan recipes
     // TEST 2: It should print the recipe Japanese Rice Bowl
   
     // Task: 15.12
+    let nameIngredient = searchByIngredientName(recipes, "lentil");
+    console.log(nameIngredient);
     // console.log all the recipes that contain the ingredient "lentil"
     // TEST 3: It should print the recipes Japanese Rice Bowl and Lentil Bolognese
   
     // Task: 15.12
-    // console.log the favorites array
+    console.log(favorites) //the favorites array
     // TEST 4: It should print the recipes "salmon soup" & "Ozzo Chicken"
   
     // Task: 15.13
