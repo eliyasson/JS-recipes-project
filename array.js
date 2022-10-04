@@ -150,7 +150,10 @@ function getRecipes() {
   const searchByIngredientName = (recipes, ingredientName) => {
     // use filter and again filter through the ingredients
     const ingredientName1 = recipes.filter(item => {
-      return item.ingredients.name === ingredientName;
+      const recipeIngredientName = item.ingredients.filter(item => {
+        return item.name === ingredientName;
+      })
+      return recipeIngredientName;
     }) 
     return ingredientName1;
   }
