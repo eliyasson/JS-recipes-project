@@ -57,29 +57,24 @@ function getRecipes() {
   // Task: 2. delete a recipe that matches a given name
   
   const deleteRecipe = (recipes, recipeName) => {
-    const updatedList = recipes.filter((x) => {
-        return x.name != recipeName;
+    const updatedList = recipes.filter((recipe) => {
+        return recipe.name != recipeName;
     })
     return updatedList;
   };
-  //let y = deleteRecipe(recipes, "rice bowl");
-  //console.log(y);
+  //let deletedRecipe = deleteRecipe(recipes, "rice bowl");
+  //console.log(deletedRecipe);
   
   // Task: 3. get only vegan recip
-  const result = recipes.filter((item) => {
-    return item.vegan;
+  const result = recipes.filter((recipe) => {
+    return recipe.vegan;
   });
 
   // Task: 4. get the names of the ingredients of a recipe
   const getIngredientNames = (recipes, recipeName) => {
-    const recipe1 = recipes.find((recipe) => {
-        return recipe.name === recipeName;
-
-    });
-    const nameOfIngredient1 = recipe1.ingredients.map((ingredient) => {
-        return ingredient.name;
-      })
-      return nameOfIngredient1;
+    const getARecipe = recipes.find(recipe =>  recipe.name === recipeName);
+        const ingredientName = getARecipe.ingredients.map(ingredient => ingredient.name)
+        return ingredientName;
     };
   //let ingredientNameList = getIngredientNames(recipes, "salmon soup");
   //console.log(ingredientNameList);
@@ -93,40 +88,40 @@ function getRecipes() {
      return favorites;
     }
   
-  //let rec = addToFavorites(favorites, OzzoChicken);
-  //let rec1 = addToFavorites(favorites, lentilBolognese);
-  //console.log(rec);
-
   // Task: 6. remove a recipe from favorites
   const removeFavorite = (favorites, recipeName) => {
-    const updatedFavorites = favorites.filter((del) => {
-    return del.name != recipeName; 
-  })
-  return updatedFavorites;
-}
-
-//let rem = removeFavorite(favorites, "Lentil Bolognese");
-//console.log(rem);
+    const filteredRecipe = favorites.filter(favorite => {
+      if(favorite.name !== recipeName) {
+        return favorite;
+      }
+    })
+    return filteredRecipe;
   
+  };
+  
+  let removedRecipe = removeFavorite(favorites, "Lentil Bolognese");
+  //console.log(removedRecipe);
+
   // Task: 7. get the list of names of the recipes in favorites
-  const findName = favorites.map((fav) => {
-    return fav.name;
-  })
-  //console.log(findName);
+  const nameOfRecipeFavorites = favorites.map(favorite => favorite.name);
   
   // Task: 8. edit a recipe - change the name
   const editRecipe = (recipes, oldName, newName) => {
-    recipes.filter(item => item.name === oldName).map(item => item.name = newName)
-    return recipes;
+    const recipeName = recipes.map(recipe => {
+      if(recipe.name === oldName) {
+          recipe.name = newName;
+        }
+        return recipe;
+      })
+    return recipeName;
   }
-  //let newRename = editRecipe(recipes, "salmon soup", "Finnish salmon soup");
-  //console.log(newRename);
-  
-  
+  let rename = editRecipe(recipes, "salmon soup", "Finnish salmon soup");
+  //console.log(rename); 
+
   // Task: 9. edit a recipe - make it vegan / make it non-vegan
   const toggleVeganStatus = (recipes, recipeName) => {
-    const filtered = recipes.filter(item => {
-      return item.name === recipeName;
+    const filtered = recipes.filter(recipe => {
+      return recipe.name === recipeName;
     })
     filtered.map(recipe => {
         if(recipe.vegan === false) {
@@ -142,8 +137,8 @@ function getRecipes() {
     
   // Task: 10. get one recipe by name - return the recipe that matches the exact name of the recipe
   const searchByRecipeName = (recipes, recipeName) => {
-    const recipeName2 = recipes.filter(item => item.name === recipeName)
-    return recipeName2;
+    const recipeName = recipes.filter(recipe => recipe.name === recipeName)
+    return recipeName;
   }
 
   // Task: 11. search by ingredient name - return all recipes that contain a given ingredient name
@@ -196,13 +191,16 @@ function getRecipes() {
     // update the ingredients of the recipe you found to have newQuantity
     // use map to map each recipe to itself, but if the name matches the recipeName, update the ingredients
     // return the updated recipes array
-    const updatedRecipeName = recipes.map(item => {
-      if(item.name === recipeName) {
-        item.ingredients.map(item => {
+    const updatedRecipeName = recipes.map(recipe => {
+      if(recipe.name === recipeName) {
+        recipe.ingredients.map(ingredient => {
+          if(ingredient.name === ingredientName) {
+            ingredient.quantity = newQuantity;
+          }
           
         })
       }
-      return item;
+      return recipe;
     })
     return updatedRecipeName;
   }
