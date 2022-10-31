@@ -157,11 +157,11 @@ function getRecipes() {
   const addIngredient = (recipes, recipeName, ingredient) => {
     // add the ingredient to the recipe that matches the recipename
     // return updatedList;
-    const updatedRecipes = recipes.map(item => {
-      if(item.name === recipeName){
-          item.ingredients.push(ingredient);
+    const updatedRecipes = recipes.map(recipe => {
+      if(recipe.name === recipeName){
+          recipe.ingredients.push(ingredient);
       }
-      return item;
+      return recipe;
     })
   
   return updatedRecipes;
@@ -191,20 +191,24 @@ function getRecipes() {
     // update the ingredients of the recipe you found to have newQuantity
     // use map to map each recipe to itself, but if the name matches the recipeName, update the ingredients
     // return the updated recipes array
-    const updatedRecipeName = recipes.map(recipe => {
-      if(recipe.name === recipeName) {
-        recipe.ingredients.map(ingredient => {
-          if(ingredient.name === ingredientName) {
+    const newRecipesWithQuanityChange = recipes.map(recipe => {
+      if(recipe.name === recipeName){
+        recipe.ingredients.find(ingredient => {
+          if(ingredient.name == ingredientName){
             ingredient.quantity = newQuantity;
           }
-          
-        })
+          return ingredient;
+        });
       }
+  
       return recipe;
     })
-    return updatedRecipeName;
+  
+    return newRecipesWithQuanityChange;
   }
  
+
+  // Task: 15. Execute the functions you implemented above as required below
   const main = () => {
     let recipes = getRecipes();
     
@@ -256,54 +260,48 @@ function getRecipes() {
   
     // Task: 15.2
     // Delete the recipe named "carbonara" using the function from Task-2
-    let deletedRecipe = deleteRecipe(recipes, "carbonara");
-    //console.log(deletedRecipe);
+    recipes = deleteRecipe(recipes, "carbonara");
   
     // Task: 15.3
     // Add ingredient "garlic with quantity: 3" to the recipe "salmon soup"
-    let newIngredient = addIngredient(recipes, "salmon soup", {name: "garlic"})
-    //console.log(newIngredient);
-    let addIngredientQuantity = editIngredientQuantity(recipes, "salmon soup", "salmon", 2)
-    //console.log(addIngredientQuantity);
+    recipes = addIngredient(recipes, "salmon soup",{name: "garlic", quantity: 3,} );
+    recipes = addIngredient(recipes, "rice bowl",{name: "lentil", quantity: 1,} );
 
-    // Add ingredient "lentil with quantity: 1" to the recipe "rice bowl"
-    let newIngredient2 = addIngredient(recipes, "rice bowl", {name: "lentil"})
-    //console.log(newIngredient2);
   
     // Task: 15.4
     // Delete ingredient named "water" from the recipe "rice bowl"
-    let deletedIngredientName = deleteIngredient(recipes, "rice bowl", "water");
-    //console.log(deletedIngredientName);
+    recipes = deleteIngredient(recipes, "rice bowl", "water");
   
     // Task: 15.5
     // Get the recipe by the name "Ozzo Chicken" and Add it to favorites
     // Get the recipe by the name "salmon soup" and Add it to favorites
     // Get the recipe by the name "Lentil Bolognese" and Add it to favorites
-    favorites = addToFavorites(favorites, lentilBolognese); 
-    //favorite1 = addToFavorites(favorites, OzzoChicken);
-    //favorite2 = addToFavorites(favorites, "salmon soup");
+
+    favorites = addToFavorites(recipes,favorites, "Lentil Bolognese");
+    favorites = addToFavorites(recipes,favorites, "salmon soup");
+    favorites = addToFavorites(recipes,favorites, "Ozzo Chicken");
   
     // Task: 15.6
     // Delete the recipe "Lentil Bolognese" from the favorites
-    let removed = removeFavorite(favorites, "Lentil Bolognese");
-    //console.log(removed);
+    favorites = removeFavorite (favorites,"Lentil Bolognese");
   
     // Task: 15.7
     // Change the name of the recipe "rice bowl" to "Japanese Rice Bowl"
-    let rename = editRecipe(recipes, "rice bowl", "Japanese Rice Bowl");
-    //console.log(rename);
-  
+
+    recipes = editRecipe(recipes,"rice bowl", "Japanese Rice Bowl");
+
     // Task: 15.8
     // change "rice bowl" to be vegan
     recipes = toggleVeganStatus(recipes, "rice bowl");
   
     // Task: 15.9
     // change the quantity of the Ingredient lentil to be 2, in  Lentil Bolognese
+    recipes = editIngredientQuantity(recipes,"Lentil Bolognese", "lentil", 2);
 
     // Task: 15.10
     // call the function you implemented on task-5 to get the list of ingredients of "salmon soup"
-    let ingredientNameList = getIngredientNames(recipes, "salmon soup");
-    console.log(ingredientNameList); 
+    //let ingredientNameList = getIngredientNames(recipes, "salmon soup");
+    //console.log(ingredientNameList); 
     // TEST 1: it should print these ingredients: salmon, cream, milk, garlic
   
     // Task: 15.11
@@ -323,6 +321,9 @@ function getRecipes() {
     // Task: 15.13
     // console.log the recipes array
     // TEST 5: It should print an array of 4 recipes that matches expectedRecipesArray defined below
+
+    console.dir(recipes, {depth: null});
+    //console.dir(favorites, {depth: null});
   }
   
   
